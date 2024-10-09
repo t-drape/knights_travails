@@ -14,6 +14,15 @@
 # 7. 0, 1, 2, 3, 4, 5, 6, 7
 
 # Each move is a node, with values to all available other moves
+# Think like vectors!
+# Vector addition
+# Always add |2| to one side, add |1| to the others
+available_spots = []
+8.times do |i|
+  8.times do |j|
+    available_spots << [i, j]
+  end
+end
 
 # A class to model a chess move
 class Move
@@ -23,26 +32,19 @@ class Move
   end
 
   def find_moves
-    i_index = @current_matrix[0]
-    j_index = @current_matrix[1]
-    available_moves = []
-    # Two steps to the side (i_index), one to the forward
-    available_moves_i = [i_index + 2, i_index - 2]
-    available_moves_j = [j_index + 1, j_index - 1]
-    available_moves_i.each_with_index do |i|
-      if i <= 7 && i >= 0
-        available_moves_j.each do |j|
-          if j <= 7 && j >= 0
-          available_moves << Move.new([i, j])
-        end
-      end
-    end
-    # Two steps forward (j_index), one step to the side
-    available_moves_i = [i_index + 1, i_index - 1]
-    available_moves_j = [j_index + 2, j_index - 2]
+    move_i, move_j = @current_matrix
+    available_moves_vert = moves_vertical(move_i, move_j)
+    available_moves_horizontal = moves_horizontal(move_i, move_j)
+  end
+
+  private
+
+  def moves_vertical(i, j)
   end
 end
 
 x = Move.new([1, 2])
+p x.find_moves
 
-adj_list = []
+def knight_moves(starting_point, end_point)
+end
