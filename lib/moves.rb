@@ -33,7 +33,6 @@ class Move
   end
 
   def find_moves
-    moves = []
     move_i, move_j = @current_matrix
     moves = moves_vertical(move_i, move_j)
     moves += moves_horizontal(move_i, move_j)
@@ -84,8 +83,10 @@ class Move
   # end
 end
 
-x = Move.new([3, 3], available_spots)
+x = Move.new([0, 0], available_spots)
 x.moves
 
 def knight_moves(starting_point, end_point)
 end
+
+# For every move in
