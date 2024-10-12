@@ -26,10 +26,11 @@ end
 
 # A class to model a chess move
 class Move
-  def initialize(move, spots)
+  def initialize(move)
     @current_matrix = move
-    @spots = available_spots
-    @available_moves = find_moves
+    @list = []
+    # @spots = available_spots
+    # @available_moves = find_moves
   end
 
   def available_spots
@@ -47,11 +48,6 @@ class Move
     moves = moves_vertical(move_i, move_j)
     moves += moves_horizontal(move_i, move_j)
     moves
-    # available_moves_horizontal = moves_horizontal(move_i, move_j)
-  end
-
-  def moves
-    p @spots
   end
 
   private
@@ -82,45 +78,45 @@ class Move
     end
     moves
   end
-
-  #   sum_i = vertical + addend
-  #   j_way.each do |other_addend|
-  #     p other_addend
-  #     sum_j = horizontal + other_addend
-  #     spot = [sum_i, sum_j]
-  #     @spots.include?(spot) ? moves << spot : next
-  #   end
-  # end
 end
 
-x = Move.new([0, 0], available_spots)
-x.moves
+x = Move.new([0, 0])
 
 def knight_moves(starting_point, end_point)
 end
 
 # graph class
 
-# aDJACENCY LIST
+# ADJACENCY LIST
 class Graph
   def initialize
-    @array = available_spots
+    @adjacency_list = fill_list
   end
 
-  def available_spots
-    spots = []
-    8.times do |i|
-      8.times do |j|
-        spots << [i, j]
-      end
-    end
-    spots
-  end
+  def fill_list
+    # Add two plus v, two minus v, one plus h, one minus h
+    # Add two pluss h, two minus h, one plus v, pne minus v
+    if (i >= 0 && i <= 7) && (j >= 0 && j <= 7)
+      # current_move list add fill move
 
-  def show
-    p @array
   end
 end
 
 y = Graph.new
-y.show
+# y.show
+
+# Hash map feature:
+#
+# 0:
+# 0:
+# [1, 2], [2 , 1]
+# 1:
+# 2:
+# 3:
+# 4:
+# 5:
+# 6:
+# 7:
+# 1:
+# 0:
+# 1:
