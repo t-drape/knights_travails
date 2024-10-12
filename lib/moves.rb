@@ -30,22 +30,41 @@ class Move
     @current_matrix = move
     @spots = spots
     @available_moves = find_moves
-    @moves = []
   end
 
   def find_moves
     moves = []
     move_i, move_j = @current_matrix
     moves = moves_vertical(move_i, move_j)
-    p moves
+    moves += moves_horizontal(move_i, move_j)
+    moves
     # available_moves_horizontal = moves_horizontal(move_i, move_j)
   end
+
+  def moves
+    p @available_moves
+  end
+
+  private
 
   def moves_vertical(vertical, horizontal)
     moves = []
     i_way = [2, -2]
     j_way = [1, -1]
     # For each of I, loop through possible j's
+    i_way.each do |i|
+      j_way.each do |j|
+        spot = [vertical + i, horizontal + j]
+        moves << spot if @spots.include?(spot)
+      end
+    end
+    moves
+  end
+
+  def moves_horizontal(vertical, horizontal)
+    moves = []
+    i_way = [1, -1]
+    j_way = [2, -2]
     i_way.each do |i|
       j_way.each do |j|
         spot = [vertical + i, horizontal + j]
@@ -65,7 +84,8 @@ class Move
   # end
 end
 
-x = Move.new([0, 0], available_spots)
+x = Move.new([3, 3], available_spots)
+x.moves
 
 def knight_moves(starting_point, end_point)
 end
