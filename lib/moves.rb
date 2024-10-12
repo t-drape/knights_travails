@@ -26,7 +26,13 @@ end
 
 # A class to model a chess move
 class Move
-  @@available_spots = lambda {
+  def initialize(move, spots)
+    @current_matrix = move
+    @spots = available_spots
+    @available_moves = find_moves
+  end
+
+  def available_spots
     spots = []
     8.times do |i|
       8.times do |j|
@@ -34,11 +40,6 @@ class Move
       end
     end
     spots
-  }
-  def initialize(move, spots)
-    @current_matrix = move
-    @spots = @@available_spots.call
-    @available_moves = find_moves
   end
 
   def find_moves
