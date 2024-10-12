@@ -30,33 +30,35 @@ class Move
     @current_matrix = move
     @spots = spots
     @available_moves = find_moves
+    @moves = []
   end
 
   def find_moves
+    moves = []
     move_i, move_j = @current_matrix
     available_moves_vert = moves_vertical(move_i, move_j)
     # available_moves_horizontal = moves_horizontal(move_i, move_j)
   end
 
-  private
-
   def moves_vertical(vertical, horizontal)
-    i_way = [1, 2]
-    j_way = [2, 1]
-    2.times do |t|
-      sum_i = vertical + i_way[t]
-      sum_j = horizontal + j_way[t]
-      spot = [sum_i, sum_j]
-      p spot
-      #   sum_i = vertical + addend
-      #   j_way.each do |other_addend|
-      #     p other_addend
-      #     sum_j = horizontal + other_addend
-      #     spot = [sum_i, sum_j]
-      #     @spots.include?(spot) ? moves << spot : next
-      #   end
-      # end
+    i_way = [2, -2]
+    j_way = [1, -1]
+    # For each of I, loop through possible j's
+    i_way.each do |i|
+      j_way.each do |j|
+        spot = [vertical + i, horizontal + j]
+        @moves << spot if @spots.include?(spot)
+        p @moves
+      end
     end
+    #   sum_i = vertical + addend
+    #   j_way.each do |other_addend|
+    #     p other_addend
+    #     sum_j = horizontal + other_addend
+    #     spot = [sum_i, sum_j]
+    #     @spots.include?(spot) ? moves << spot : next
+    #   end
+    # end
   end
 end
 
