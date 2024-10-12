@@ -26,9 +26,18 @@ end
 
 # A class to model a chess move
 class Move
+  @@available_spots = lambda {
+    spots = []
+    8.times do |i|
+      8.times do |j|
+        spots << [i, j]
+      end
+    end
+    spots
+  }
   def initialize(move, spots)
     @current_matrix = move
-    @spots = spots
+    @spots = @@available_spots.call
     @available_moves = find_moves
   end
 
@@ -41,7 +50,7 @@ class Move
   end
 
   def moves
-    p @available_moves
+    p @spots
   end
 
   private
@@ -89,4 +98,28 @@ x.moves
 def knight_moves(starting_point, end_point)
 end
 
-# For every move in
+# graph class
+
+# aDJACENCY LIST
+class Graph
+  def initialize
+    @array = available_spots
+  end
+
+  def available_spots
+    spots = []
+    8.times do |i|
+      8.times do |j|
+        spots << [i, j]
+      end
+    end
+    spots
+  end
+
+  def show
+    p @array
+  end
+end
+
+y = Graph.new
+y.show
