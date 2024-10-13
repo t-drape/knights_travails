@@ -16,15 +16,13 @@
 
 # A class to represent a move in chess, with all future available moves available (knight)
 class Node
+  attr_accessor :list
+
   def initialize(move)
     @move = move
     @i_coordinate = move[0]
     @j_coordinate = move[1]
     @list = moves_vertical + moves_horizontal
-  end
-
-  def show
-    p @list
   end
 
   private
@@ -151,14 +149,26 @@ class Graph
     spots
   end
 
-  def show
-    p @adjacency_list[3][3]
+  def find_path(start, end_square, cost = 0)
+    # Deliver the shortest path from given path to end path
+    # There will always be a way
+    # DFS agorithm
+    return cost if start == end_square
+
+    list = @adjacency_list[start[0]][start[1]].list
+    lowest_cost_node = list.pop
+    prev_cost = find_path(lowest_cost_node, end_square, cost + 1)
+    p prev_cost
+    list.each do |new_node|
+      new_cost = find_path(new_node, end_square, cost + 1)
+      p new_cost
+      lowest_cost_node = new_node if new_cost < prev_cost
+    end
   end
 end
 
 y = Graph.new
-y.show
-# y.show
+y.find_path([0, 0], [3, 3])
 
 # Hash map feature:
 #
