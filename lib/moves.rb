@@ -12,6 +12,50 @@
 # 5. 0, 1, 2, 3, 4, 5, 6, 7
 # 6. 0, 1, 2, 3, 4, 5, 6, 7
 # 7. 0, 1, 2, 3, 4, 5, 6, 7
+#
+
+# A class to represent a move in chess, with all future available moves available (knight)
+class Node
+  def initialize(move)
+    @move = move
+    @i_coordinate = move[0]
+    @j_coordinate = move[1]
+    @list = moves_vertical + moves_horizontal
+  end
+
+  def show
+    p @list
+  end
+
+  private
+
+  def moves_vertical
+    moves = []
+    # For each of I, loop through possible j's
+    [2, -2].each do |i|
+      i_coord = i + @i_coordinate
+      [1, -1].each do |j|
+        j_coord = j + @j_coordinate
+        moves << [i_coord, j_coord] if (i_coord >= 0 && i_coord <= 7) && (j_coord >= 0 && j_coord <= 7)
+      end
+    end
+    moves
+  end
+
+  def moves_horizontal
+    moves = []
+    # For each of I, loop through possible j's
+    # [1, -1]
+    [1, -1].each do |i|
+      i_coord = i + @i_coordinate
+      [2, -2].each do |j|
+        j_coord = j + @j_coordinate
+        moves << [i_coord, j_coord] if (i_coord >= 0 && i_coord <= 7) && (j_coord >= 0 && j_coord <= 7)
+      end
+    end
+    moves
+  end
+end
 
 # Each move is a node, with values to all available other moves
 # Think like vectors!
@@ -96,13 +140,24 @@ class Graph
   def fill_list
     # Add two plus v, two minus v, one plus h, one minus h
     # Add two pluss h, two minus h, one plus v, pne minus v
-    if (i >= 0 && i <= 7) && (j >= 0 && j <= 7)
-      # current_move list add fill move
+    # current_move list add fill move
+    spots = []
+    8.times do |i|
+      spots << []
+      8.times do |j|
+        spots[i] << Node.new([i, j])
+      end
+    end
+    spots
+  end
 
+  def show
+    p @adjacency_list[3][3]
   end
 end
 
 y = Graph.new
+y.show
 # y.show
 
 # Hash map feature:
