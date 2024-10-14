@@ -157,14 +157,18 @@ class Graph
     # BFS algo
     # FIFO: First in, first out
     p start
-    return cost if start == end_square
+    return 0 if start == end_square
 
     moves << start
     @adjacency_list[start[0]][start[1]].list.each do |e|
       frontier << e unless moves.include?(e)
     end
-
-    find_path(frontier.pop, end_square, cost + 1, frontier, moves)
+    best_cost = find_path(frontier.pop, end_square, cost + 1, frontier, moves)
+    until frontier.empty?
+      new_cost = find_path(frontier.pop, end_square, cost + 1, frontier, moves)
+      best_cost = new_cost if new_cost < best_cost
+    end
+    best_cost
   end
 end
 
