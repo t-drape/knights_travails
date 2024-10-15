@@ -149,26 +149,13 @@ class Graph
     spots
   end
 
-  def find_path(start, end_square, cost = 0, frontier = [], moves = [])
+  def find_path(start, end_square, cost = 0, moves = [])
     # Deliver the shortest path from given path to end path
     # There will always be a way
-    # DFS algorithm
-    # LIFO: Last node in, first node out
     # BFS algo
-    # FIFO: First in, first out
-    p start
-    return 0 if start == end_square
-
-    moves << start
-    @adjacency_list[start[0]][start[1]].list.each do |e|
-      frontier << e unless moves.include?(e)
-    end
-    best_cost = find_path(frontier.pop, end_square, cost + 1, frontier, moves)
-    until frontier.empty?
-      new_cost = find_path(frontier.pop, end_square, cost + 1, frontier, moves)
-      best_cost = new_cost if new_cost < best_cost
-    end
-    best_cost
+    # FIFO: First in First out
+    # Helpful Artile: url: https://memgraph.com/blog/graph-search-algorithms-developers-guide
+    cost if start == end_square
   end
 end
 
