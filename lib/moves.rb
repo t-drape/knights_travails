@@ -16,13 +16,14 @@
 
 # A class to represent a move in chess, with all future available moves available (knight)
 class Node
-  attr_accessor :list
+  attr_accessor :list, :visited
 
   def initialize(move)
     @move = move
     @i_coordinate = move[0]
     @j_coordinate = move[1]
     @list = moves_vertical + moves_horizontal
+    @visited = false
   end
 
   private
@@ -149,13 +150,23 @@ class Graph
     spots
   end
 
-  def find_path(start, end_square, cost = 0, moves = [])
+  def find_path(start, end_square, cost = 0, queue = [])
+    # Helpful Articles
+    # url: https://memgraph.com/blog/graph-search-algorithms-developers-guide
+    # url : https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
     # Deliver the shortest path from given path to end path
     # There will always be a way
     # BFS algo
-    # FIFO: First in First out
-    # Helpful Artile: url: https://memgraph.com/blog/graph-search-algorithms-developers-guide
-    cost if start == end_square
+    # FIFO: First in, first out
+
+    p start
+    return cost if start == end_square
+
+    @adjacency_list[start[0]][start[1]].visited = true
+    @adjacency_list[start[0]][start[1]].list.each do |e|
+      frontier << e unless @adjacency_list[e[0]][e[1]].visited
+    end
+    best_cost = find_path(frontier.pop, end_square, cost + 1, frontier, moves)
   end
 end
 
