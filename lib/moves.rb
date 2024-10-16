@@ -158,19 +158,21 @@ class Graph
     # There will always be a way
     # BFS algo
     # FIFO: First in, first out
-
-    return moves if start == end_square
+    if start == end_square
+      moves << end_square
+      return moves
+    end
 
     @adjacency_list[start[0]][start[1]].visited = true
     @adjacency_list[start[0]][start[1]].list.each do |e|
-      queue << e unless @adjacency_list[e[0]][e[1]].visited
+      queue << e unless @adjacency_list[e[0]][e[1]].visited == true
     end
 
-    best_path = 1 / 0.0
     until queue.empty?
       x = queue.pop
-      length = find_path(x, end_square, moves << start)
-      best_path = length if length.length < best_path.length
+      arr_of_moves = find_path(x, end_square, moves << start, [], best_path)
+      p arr_of_moves
+      best_path = arr_of_moves if arr_of_moves.length < best_path.length
     end
     best_path
   end
