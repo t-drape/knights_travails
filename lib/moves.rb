@@ -150,7 +150,7 @@ class Graph
     spots
   end
 
-  def find_path(start, end_square, moves = [], queue = [])
+  def find_path(start, end_square, moves = [], parent = nil, queue = [])
     # Helpful Articles
     # url: https://memgraph.com/blog/graph-search-algorithms-developers-guide
     # url : https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
@@ -158,23 +158,16 @@ class Graph
     # There will always be a way
     # BFS algo
     # FIFO: First in, first out
-    if start == end_square
-      moves << end_square
-      return moves
-    end
+    return start if start == end_square
 
     @adjacency_list[start[0]][start[1]].visited = true
     @adjacency_list[start[0]][start[1]].list.each do |e|
-      queue << e unless @adjacency_list[e[0]][e[1]].visited == true
+      queue << e unless moves.include?(e)
     end
-
     until queue.empty?
       x = queue.pop
-      arr_of_moves = find_path(x, end_square, moves << start, [], best_path)
-      p arr_of_moves
-      best_path = arr_of_moves if arr_of_moves.length < best_path.length
+      find_path(x, end_square, moves << start, start)
     end
-    best_path
   end
 end
 
