@@ -1,11 +1,5 @@
 # frozen_string_literal: true
 
-# Helpful Articles
-# url: https://memgraph.com/blog/graph-search-algorithms-developers-guide
-# url: https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
-# url: https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
-# url: https://www.youtube.com/watch?v=T_m27bhVQQQ
-
 require_relative('node')
 
 # We want the best algorithm
@@ -80,6 +74,3 @@ class Graph
     path.reverse
   end
 end
-
-y = Graph.new
-y.find_path([0, 0], [7, 7])

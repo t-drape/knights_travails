@@ -8,3 +8,5 @@ def knight_moves(starting_point, end_point)
   puts "You made it in #{moves.length} moves! Here's your path: "
   moves.each { |e| p e }
 end
+
+knight_moves([0, 0], [7, 7])
