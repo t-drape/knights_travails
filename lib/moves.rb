@@ -182,6 +182,7 @@ class Graph
         queue << e
       end
     end
+
     path = []
     node = end_square
     until par[node[0]][node[1]].nil?
@@ -216,7 +217,7 @@ class Graph
 end
 
 y = Graph.new
-p y.find_path([0, 0], [1, 2])
+p y.find_path([0, 0], [7, 7])
 # p y.find_path([0, 0], [3, 3])
 
 # Hash map feature:
