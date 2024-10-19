@@ -215,7 +215,7 @@ class Graph
 end
 
 y = Graph.new
-p y.find_path([2, 1], [3, 3])
+p y.find_path([0, 0], [0, 7])
 # p y.find_path([0, 0], [3, 3])
 
 # Hash map feature:
