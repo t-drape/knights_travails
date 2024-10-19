@@ -150,29 +150,74 @@ class Graph
     spots
   end
 
-  def find_path(start, end_square, moves = [], parent = nil, queue = [])
+  # def find_path(start, end_square, moves = [], parent = nil, best_nodes = [])
+  def find_path(start, end_square)
     # Helpful Articles
     # url: https://memgraph.com/blog/graph-search-algorithms-developers-guide
-    # url : https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+    # url: https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+    # url: https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
     # Deliver the shortest path from given path to end path
     # There will always be a way
     # BFS algo
     # FIFO: First in, first out
-    return start if start == end_square
+
+    dist = [[], [], [], [], [], [], [], []]
+    par = [[], [], [], [], [], [], [], []]
+    queue = []
+
+    dist[start[0]][start[1]] = 0
 
     @adjacency_list[start[0]][start[1]].visited = true
-    @adjacency_list[start[0]][start[1]].list.each do |e|
-      queue << e unless moves.include?(e)
-    end
+
+    queue << start
+
     until queue.empty?
-      x = queue.pop
-      find_path(x, end_square, moves << start, start)
+      node = queue.pop
+
+      @adjacency_list[node[0]][node[1]].list.each do |e|
+        next unless dist[e[0]][e[1]].nil?
+
+        dist[e[0]][e[1]] = dist[node[0]][node[1]] + 1
+        par[e[0]][e[1]] = node
+        queue << e
+      end
     end
+    path = []
+    node = end_square
+    until par[node[0]][node[1]].nil?
+      path << node
+      node = par[node[0]][node[1]]
+    end
+    path << node
+    path.reverse
   end
+
+  # Keep track of parent node
+  # Return array from start to end square
+  # if start equals end square, count does not increase
+
+  #   moves << start
+  #   p moves
+  #   return start if start == end_square
+
+  #   queue = []
+
+  #   @adjacency_list[start[0]][start[1]].visited = true
+  #   @adjacency_list[start[0]][start[1]].list.each do |e|
+  #     queue << e unless moves.include?(e)
+  #   end
+  #   p '----QUEUE-----'
+  #   p queue
+  #   until queue.empty?
+  #     x = queue.pop
+  #     moves << find_path(x, end_square, moves, start)
+  #   end
+  # end
 end
 
 y = Graph.new
-p y.find_path([0, 0], [3, 3])
+p y.find_path([0, 0], [1, 2])
+# p y.find_path([0, 0], [3, 3])
 
 # Hash map feature:
 #
