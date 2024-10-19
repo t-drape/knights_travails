@@ -23,7 +23,6 @@ class Node
     @i_coordinate = move[0]
     @j_coordinate = move[1]
     @list = moves_vertical + moves_horizontal
-    @visited = false
   end
 
   private
@@ -167,25 +166,24 @@ class Graph
 
     dist[start[0]][start[1]] = 0
 
-    @adjacency_list[start[0]][start[1]].visited = true
-
     queue << start
 
-    until queue.empty?
-      node = queue.pop
+    while !queue.empty? && dist[end_square[0]][end_square[1]].nil?
+      curr_node = queue.shift
+      cost = dist[curr_node[0]][curr_node[1]] + 1
 
-      @adjacency_list[node[0]][node[1]].list.each do |e|
+      @adjacency_list[curr_node[0]][curr_node[1]].list.each do |e|
         next unless dist[e[0]][e[1]].nil?
 
-        dist[e[0]][e[1]] = dist[node[0]][node[1]] + 1
-        par[e[0]][e[1]] = node
         queue << e
+        dist[e[0]][e[1]] = cost
+        par[e[0]][e[1]] = curr_node
       end
     end
 
     path = []
     node = end_square
-    until par[node[0]][node[1]].nil?
+    until node == start
       path << node
       node = par[node[0]][node[1]]
     end
@@ -217,7 +215,7 @@ class Graph
 end
 
 y = Graph.new
-p y.find_path([0, 0], [7, 7])
+p y.find_path([2, 1], [3, 3])
 # p y.find_path([0, 0], [3, 3])
 
 # Hash map feature:
