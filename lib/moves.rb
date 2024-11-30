@@ -25,7 +25,7 @@ class Graph
 
   def fill_list
     # Add two plus v, two minus v, one plus h, one minus h
-    # Add two pluss h, two minus h, one plus v, pne minus v
+    # Add two plus h, two minus h, one plus v, pne minus v
     # current_move list add fill move
     spots = []
     8.times do |i|
